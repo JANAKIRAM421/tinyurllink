@@ -3,6 +3,7 @@ import prisma from "../../../lib/prisma";
 
 
 
+
 export default async function handler(req, res) {
 if (req.method === "GET") {
 const links = await prisma.link.findMany({ orderBy: { createdAt: "desc" } });

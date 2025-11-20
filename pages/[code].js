@@ -1,5 +1,4 @@
-// pages/[code].js
-import prisma from "../lib/prisma";
+import prisma from "../../../lib/prisma";
 
 
 export async function getServerSideProps({ params }) {

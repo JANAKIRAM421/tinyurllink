@@ -1,5 +1,6 @@
 // pages/api/links/[code]/click.js
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
+
 
 
 export default async function handler(req, res) {
