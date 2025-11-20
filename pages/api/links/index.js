@@ -1,10 +1,5 @@
 // pages/api/links/index.js
-import prisma from "../../../lib/prisma";
-
-
-
-
-
+import prisma from "lib/prisma";
 export default async function handler(req, res) {
 if (req.method === "GET") {
 const links = await prisma.link.findMany({ orderBy: { createdAt: "desc" } });
