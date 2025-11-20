@@ -1,7 +1,9 @@
 // pages/healthz.js
-export default function handler(req, res) {
-  // Note: this is rendered server-side as a page — works for health checks
-  return {
-  props: {},
-  };
-  }
+export default function Healthz() {
+  return (
+    <div>
+      <h1>OK</h1>
+      <p>Status: healthy</p>
+    </div>
+  );
+}
