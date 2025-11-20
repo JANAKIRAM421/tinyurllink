@@ -1,25 +1,30 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+// pages/[code].js
+import prisma from "../lib/prisma";
 
-export async function getServerSideProps(context) {
-  const { code } = context.params;
-  const link = await prisma.link.findUnique({ where: { code } });
-  if (!link) {
-    return { notFound: true };
-  }
-  // increment clicks and update lastClicked
-  await prisma.link.update({
-    where: { code },
-    data: { clicks: { increment: 1 }, lastClicked: new Date() }
-  });
-  return {
-    redirect: {
-      destination: link.targetUrl,
-      permanent: false,
-    }
-  };
+
+export async function getServerSideProps({ params }) {
+const { code } = params;
+try {
+const link = await prisma.link.findUnique({ where: { code } });
+if (!link || !link.targetUrl) return { notFound: true };
+
+
+await prisma.link.update({
+where: { code },
+data: { clicks: { increment: 1 }, lastClicked: new Date() },
+});
+
+
+return {
+redirect: { permanent: false, destination: link.targetUrl },
+};
+} catch (err) {
+console.error("redirect error", err);
+return { notFound: true };
+}
 }
 
+
 export default function RedirectPage() {
-  return null;
+return null;
 }
